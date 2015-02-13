@@ -22,7 +22,6 @@ import cv2
 # NORMALIZERING TOEPASSEN?
 
 
-
 # make a list of all images in the dir
 images = listdir("/Users/nibo/data/yalefaces")
 images.pop(0)

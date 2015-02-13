@@ -31,7 +31,7 @@ data_mat = np.zeros((len(images), 18954))
 positive_Y = np.ones(len(images),dtype=np.int)
 current_column = 0
 
-print "positive data matrix size:", data_mat.shape
+print("positive data matrix size:", data_mat.shape)
 
 for im in images:
 	path = "/Users/nibo/data/yalefaces/" + im
@@ -41,7 +41,7 @@ for im in images:
 	data_mat[current_column,:] = fd
 	current_column += 1
 
-print "processed " + str(current_column) + " images for the positive data set"
+print("processed " + str(current_column) + " images for the positive data set")
 
 
 # make a list of all images in the negative dir
@@ -55,7 +55,7 @@ neg_data_mat = np.zeros((len(neg_images), 18954))
 negative_Y = np.zeros(len(neg_images), dtype=np.int)
 current_column = 0
 
-print "negative data matrix size:", neg_data_mat.shape
+print("negative data matrix size:", neg_data_mat.shape)
 
 for neg_im in neg_images:
 	path = "/Users/nibo/data/Caltech/PNGImages/background/" + neg_im
@@ -68,14 +68,14 @@ for neg_im in neg_images:
 	neg_data_mat[current_column,:] = fd
 	current_column += 1
 
-print "processed " + str(current_column) + " images for the negative data set"
+print("processed " + str(current_column) + " images for the negative data set")
 
 total_X = np.concatenate([data_mat, neg_data_mat])
 total_Y = np.concatenate([positive_Y, negative_Y])
 
 
 (trainX, testX, trainY, testY) = train_test_split(total_X, total_Y, test_size=0.33, random_state=42)
-print trainX.shape
+print(trainX.shape)
 
 # train the Deep Belief Network with 18954 input units, 
 # 1000 hidden units, 2 output units (one for
@@ -91,7 +91,7 @@ dbn.fit(trainX, trainY)
 # compute the predictions for the test data and show a classification
 # report
 preds = dbn.predict(testX)
-print classification_report(testY, preds)
+print(classification_report(testY, preds))
 
 
 
@@ -123,8 +123,8 @@ not_fd_transpose[:,:] = not_test_fd
 
 not_pred_test = dbn.predict(not_fd_transpose)
 
-print pred_test, not_pred_test
-print np.shape(testX), np.shape(not_fd_transpose)
+print(pred_test, not_pred_test)
+print(np.shape(testX), np.shape(not_fd_transpose))
 
 
 

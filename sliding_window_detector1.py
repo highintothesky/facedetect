@@ -1,7 +1,7 @@
 # Sliding window detector
 # window size 320 x 243 (w x h)
 
-EERST NORMALIZATIE FIXEN
+# EERST NORMALIZATIE FIXEN
 
 import numpy as np
 import cv2

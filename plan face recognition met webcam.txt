@@ -1,0 +1,29 @@
+plan face recognition met webcam:
+
+data: 
+
+
+5 modellen 
+max schaal heeft hoogte webcambeeld, elke kleinere schaal krimpt met factor 2
+
+tijdens (of voor) training voor alle P (pos) en N:
+- maak 5 scales van input (note: ratio)
+- bereken HOG (+ misschien andere features) van elke scale
+- HOG aanpassen/feature veranderen? zie "seeking the strongest rigid detector" (of anderen), Benenson et al.
+
+training! convnet/linear SVM/deep belief network?
+
+
+notes:
+RATIO - gezichtsbeelden van zelfde afmeting vinden? affine transformatie kan, maar vervormt. 
+grote dataset met close-ups van zelfde afmetingen beter
+
+c++/python implementatie hier:
+http://kgeorge.github.io/2014/06/03/hog-implementation-and-object-detection/
+
+python implementatie HOG (skimage):
+https://code.google.com/p/pythonxy/source/browse/src/python/scikits.image/PLATLIB/skimage/feature/hog.py?repo=xy-27&r=13342d4c8c84fdc4dd3201bbde6201d8ba5b0683
+
+sliding window + classifier creeert mogelijke matches, stop die in een lijst
+deze lijst zal bijv. 9 matches hebben voor 1 gezicht, neem de middelste (nr 5)
+OF: maak een nieuwe match van het gemiddelde van >50% overlappende mogelijke matches

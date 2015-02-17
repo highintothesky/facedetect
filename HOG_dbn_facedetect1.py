@@ -1,5 +1,6 @@
 # facedetect - HOG + dbn
 
+from sklearn.preprocessing import normalize
 from sklearn.cross_validation import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.externals import joblib
@@ -9,17 +10,13 @@ from nolearn.dbn import DBN
 from os import listdir
 from PIL import Image
 import numpy as np
-# import cudamat as cm
 import cv2
 
-# image = color.rgb2gray(np.asarray(Image.open('/Users/nibo/data/yalefaces/subject04.centerlight')))
 
 
 # fd, hog_image = hog(image, orientations=8, pixels_per_cell=(16, 16),
 #                     cells_per_block=(1, 1), visualise=True)
 
-
-# NORMALIZERING TOEPASSEN?
 
 
 # make a list of all images in the dir
@@ -70,8 +67,10 @@ for neg_im in neg_images:
 
 print("processed " + str(current_column) + " images for the negative data set")
 
-total_X = np.concatenate([data_mat, neg_data_mat])
+total_X_prenorm = np.concatenate([data_mat, neg_data_mat])
 total_Y = np.concatenate([positive_Y, negative_Y])
+
+total_X = normalize(total_X_prenorm)
 
 
 (trainX, testX, trainY, testY) = train_test_split(total_X, total_Y, test_size=0.33, random_state=42)
@@ -98,33 +97,36 @@ print(classification_report(testY, preds))
 #### TEST ####
 
 test_path = 'test_images/7.gif'
-test_image = color.rgb2gray(np.asarray(Image.open(test_path)))
-image_crop = test_image[0:243,0:320]
+original_test_image = Image.open(test_path)
+test_image_resized = color.rgb2gray(np.asarray(original_test_image.resize((320,243))))
+# image_crop = test_image_resized[0:243,0:320]
 
-test_fd = np.asarray(hog(image_crop, orientations=9, pixels_per_cell=(16, 16),
+test_fd = np.asarray(hog(test_image_resized, orientations=9, pixels_per_cell=(16, 16),
                     cells_per_block=(3, 3), visualise=False))
 
-fd_transpose = np.zeros((1,18954), dtype=np.int)
+fd_transpose = np.zeros((1,18954))
 fd_transpose[:,:] = test_fd
 
-pred_test = dbn.predict(fd_transpose)
+pred_test = dbn.predict(normalize(fd_transpose))
 
 
 
 not_test_path = 'test_images/not1.jpg'
-not_test_image = color.rgb2gray(np.asarray(Image.open(not_test_path)))
-not_image_crop = not_test_image[0:243,0:320]
+original_not_test_image = Image.open(not_test_path)
+not_test_image_resized = color.rgb2gray(np.asarray(original_not_test_image.resize((320,243))))
+# not_image_crop = not_test_image[0:243,0:320]
 
-not_test_fd = np.asarray(hog(not_image_crop, orientations=9, pixels_per_cell=(16, 16),
+not_test_fd = np.asarray(hog(not_test_image_resized, orientations=9, pixels_per_cell=(16, 16),
                     cells_per_block=(3, 3), visualise=False))
 
-not_fd_transpose = np.zeros((1,18954), dtype=np.int)
+not_fd_transpose = np.zeros((1,18954))
 not_fd_transpose[:,:] = not_test_fd
 
-not_pred_test = dbn.predict(not_fd_transpose)
+not_pred_test = dbn.predict(normalize(not_fd_transpose))
 
-print(pred_test, not_pred_test)
-print(np.shape(testX), np.shape(not_fd_transpose))
+print("prediction test: ", pred_test, "negative test: ", not_pred_test)
+print("shape test data: ", np.shape(testX), "shape neg. test: ", np.shape(not_fd_transpose))
+print("mean test data: ", np.mean(testX, axis = 1), "mean pred. test: ", np.mean(fd_transpose, axis = 1), "mean neg. pred. test: ", np.mean(not_fd_transpose, axis = 1))
 
 
 

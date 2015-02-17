@@ -4,9 +4,9 @@ from matplotlib import pyplot as plt
 
 try:
 	face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-	print "ja"
+	print("ja")
 except ValueError:
-	print "oeps"
+	print("oeps")
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 
 img = cv2.imread('xfiles.jpg')

@@ -18,11 +18,11 @@ path = 'test_images/not2.jpg'
 
 image = color.rgb2gray(np.asarray(Image.open(path)))
 
-print np.shape(image)
+print(np.shape(image))
 
 image_crop = image[0:243,0:320]
 
-print np.shape(image_crop)
+print(np.shape(image_crop))
 
 fd = np.asarray(hog(image_crop, orientations=9, pixels_per_cell=(16, 16),
                     cells_per_block=(3, 3), visualise=False))
@@ -30,11 +30,11 @@ fd = np.asarray(hog(image_crop, orientations=9, pixels_per_cell=(16, 16),
 fd_transpose = np.zeros((1,18954), dtype=np.int)
 fd_transpose[:,:] = fd
 
-print fd.shape, fd_transpose.shape
+print(fd.shape, fd_transpose.shape)
 
 pred = model_clone.predict(fd_transpose)
 
-print pred
+print(pred)
 
 cv2.imshow("crop", image_crop)
 cv2.waitKey(0)

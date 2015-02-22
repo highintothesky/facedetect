@@ -97,41 +97,38 @@ print(classification_report(testY, preds))
 
 #### TEST ####
 
-# test_path = 'test_images/7.gif'
-# original_test_image = Image.open(test_path)
-# test_image_resized = color.rgb2gray(np.asarray(original_test_image.resize((320,243))))
-# # image_crop = test_image_resized[0:243,0:320]
+test_path = 'test_images/7.gif'
+original_test_image = Image.open(test_path)
+test_image_resized = color.rgb2gray(np.asarray(original_test_image.resize((320,243))))
+# image_crop = test_image_resized[0:243,0:320]
 
-# test_fd = np.asarray(hog(test_image_resized, orientations=9, pixels_per_cell=(16, 16),
-#                     cells_per_block=(3, 3), visualise=False))
+test_fd = np.asarray(hog(test_image_resized, orientations=9, pixels_per_cell=(16, 16),
+                    cells_per_block=(3, 3), visualise=False))
 
-# fd_transpose = np.zeros((1,18954))
-# fd_transpose[:,:] = test_fd
+fd_transpose = np.zeros((1,18954))
+fd_transpose[:,:] = test_fd
 
-# pred_test = dbn.predict(normalize(fd_transpose))
+pred_test = dbn.predict(normalize(fd_transpose))
 
 
 
-# not_test_path = 'test_images/not1.jpg'
-# original_not_test_image = Image.open(not_test_path)
-# not_test_image_resized = color.rgb2gray(np.asarray(original_not_test_image.resize((320,243))))
-# # not_image_crop = not_test_image[0:243,0:320]
+not_test_path = 'test_images/not1.jpg'
+original_not_test_image = Image.open(not_test_path)
+not_test_image_resized = color.rgb2gray(np.asarray(original_not_test_image.resize((320,243))))
+# not_image_crop = not_test_image[0:243,0:320]
 
-# not_test_fd = np.asarray(hog(not_test_image_resized, orientations=9, pixels_per_cell=(16, 16),
-#                     cells_per_block=(3, 3), visualise=False))
+not_test_fd = np.asarray(hog(not_test_image_resized, orientations=9, pixels_per_cell=(16, 16),
+                    cells_per_block=(3, 3), visualise=False))
 
-# not_fd_transpose = np.zeros((1,18954))
-# not_fd_transpose[:,:] = not_test_fd
+not_fd_transpose = np.zeros((1,18954))
+not_fd_transpose[:,:] = not_test_fd
 
-# not_pred_test = dbn.predict(normalize(not_fd_transpose))
+not_pred_test = dbn.predict(normalize(not_fd_transpose))
 
-<<<<<<< Updated upstream
 print("prediction test: ", pred_test, "negative test: ", not_pred_test)
 print("shape test data: ", np.shape(testX), "shape neg. test: ", np.shape(not_fd_transpose))
-=======
 # print("prediction test: ", pred_test, "negative test: ", not_pred_test)
 # print("shape test data: ", np.shape(testX), "shape neg. test: ", np.shape(not_fd_transpose))
->>>>>>> Stashed changes
 # print("mean test data: ", np.mean(testX, axis = 1), "mean pred. test: ", np.mean(fd_transpose, axis = 1), "mean neg. pred. test: ", np.mean(not_fd_transpose, axis = 1))
 
 

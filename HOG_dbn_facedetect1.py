@@ -135,7 +135,7 @@ print("shape test data: ", np.shape(testX), "shape neg. test: ", np.shape(not_fd
 #### WRITE MODEL ####
 
 
-joblib.dump(dbn, 'hog_dbn_models/hog_dbn_1.pkl', compress=9)
+# joblib.dump(dbn, 'hog_dbn_models/hog_dbn_1.pkl', compress=9)
 
-# cv2.imshow("sub03", hog_image)
-cv2.waitKey(0)
+# # cv2.imshow("sub03", hog_image)
+# cv2.waitKey(0)

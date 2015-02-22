@@ -23,6 +23,7 @@ import cv2
 images = listdir("/Users/nibo/data/yalefaces")
 images.pop(0)
 
+
 # create feature vector matrix
 data_mat = np.zeros((len(images), 18954))
 positive_Y = np.ones(len(images),dtype=np.int)
@@ -126,7 +127,7 @@ not_pred_test = dbn.predict(normalize(not_fd_transpose))
 
 print("prediction test: ", pred_test, "negative test: ", not_pred_test)
 print("shape test data: ", np.shape(testX), "shape neg. test: ", np.shape(not_fd_transpose))
-print("mean test data: ", np.mean(testX, axis = 1), "mean pred. test: ", np.mean(fd_transpose, axis = 1), "mean neg. pred. test: ", np.mean(not_fd_transpose, axis = 1))
+# print("mean test data: ", np.mean(testX, axis = 1), "mean pred. test: ", np.mean(fd_transpose, axis = 1), "mean neg. pred. test: ", np.mean(not_fd_transpose, axis = 1))
 
 
 

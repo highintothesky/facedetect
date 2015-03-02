@@ -9,6 +9,7 @@ from skimage.feature import hog
 from nolearn.dbn import DBN
 from os import listdir
 from PIL import Image
+from joblib import Parallel, delayed
 import numpy as np
 import cv2
 
@@ -86,7 +87,10 @@ dbn = DBN(
 	learn_rate_decays = 0.9,
 	epochs = 3,
 	verbose = 1)
+
+# train multicore
 dbn.fit(trainX, trainY)
+
 
 # compute the predictions for the test data and show a classification
 # report
@@ -112,7 +116,7 @@ pred_test = dbn.predict(normalize(fd_transpose))
 
 
 
-not_test_path = 'test_images/not1.jpg'
+not_test_path = 'test_images/hi.jpg'
 original_not_test_image = Image.open(not_test_path)
 not_test_image_resized = color.rgb2gray(np.asarray(original_not_test_image.resize((320,243))))
 # not_image_crop = not_test_image[0:243,0:320]
@@ -135,7 +139,7 @@ print("shape test data: ", np.shape(testX), "shape neg. test: ", np.shape(not_fd
 #### WRITE MODEL ####
 
 
-# joblib.dump(dbn, 'hog_dbn_models/hog_dbn_1.pkl', compress=9)
+joblib.dump(dbn, 'hog_dbn_models/hog_dbn_1.pkl', compress=9)
 
 # # cv2.imshow("sub03", hog_image)
 # cv2.waitKey(0)

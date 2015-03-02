@@ -1,7 +1,6 @@
 # Sliding window detector
 # window size 320 x 243 (w x h)
 
-# EERST NORMALIZATIE FIXEN
 
 import numpy as np
 import cv2
@@ -15,7 +14,7 @@ from PIL import Image
 
 model_clone = joblib.load('hog_dbn_models/hog_dbn_1.pkl')
 
-path = 'test_images/5.gif'
+path = 'test_images/1.jpg'
 or_image = Image.open(path)
 image = color.rgb2gray(np.asarray(or_image.resize((320,243))))
 
@@ -36,7 +35,7 @@ fd_transpose[:,:] = fd
 
 print(fd.shape, fd_transpose.shape)
 
-pred = model_clone.predict(fd_transpose)
+pred = model_clone.predict(normalize(fd_transpose))
 
 print(pred)
 

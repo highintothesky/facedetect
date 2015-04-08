@@ -9,11 +9,11 @@ from skimage.feature import hog
 from nolearn.dbn import DBN
 from os import listdir
 from PIL import Image
-from joblib import Parallel, delayed
 import numpy as np
 import cv2
 
-
+# opencv hog is much faster!
+# 
 
 # fd, hog_image = hog(image, orientations=8, pixels_per_cell=(16, 16),
 #                     cells_per_block=(1, 1), visualise=True)

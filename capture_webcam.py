@@ -13,7 +13,7 @@ cap = cv2.VideoCapture(0)
 cap.set(3,384)
 cap.set(4,286)
 
-capturecounter = 122
+capturecounter = 104
 
 while(True):
     # Capture frame-by-frame
